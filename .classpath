@@ -18,5 +18,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/AlexWolff/Development/mysql-connector-java-5.1.30/mysql-connector-java-5.1.30-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
