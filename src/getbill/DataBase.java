@@ -14,19 +14,21 @@ import java.util.Date;
 public class DataBase {
 	private Connection connection;
 	private static DataBase instance = null;
+	private static Boolean goodDriver = false;
+	private static Boolean goodConnection = false;
 	
 	protected DataBase(){
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date date = new Date();
-		System.out.println("Time: "+dateFormat.format(date));
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 		}
 		catch (ClassNotFoundException e){
+			goodDriver = false;
 			System.out.println("No MySQL JDBC Driver");
 			e.printStackTrace();
 			return;
 		}
+		goodDriver = true;
 		System.out.println("MySQL JDBC DRiver Registered");
 		
 		String serverName = "localhost";
@@ -38,15 +40,20 @@ public class DataBase {
 		try{
 			connection = DriverManager.getConnection(url, user, password);
 		}catch (SQLException e){
+			goodConnection = false;
 			System.out.println("Could not connect");
 			e.printStackTrace();
 			return;
 		}
+		goodConnection = true;
 		
 	}
 	
 	public static DataBase getInstance(){
-		if(instance == null){
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		Date date = new Date();
+		System.out.println("Time: "+dateFormat.format(date));
+		if(instance == null || goodDriver == false || goodConnection == false){
 			instance = new DataBase();
 		}
 		return instance;
@@ -102,7 +109,7 @@ public class DataBase {
 		e.printStackTrace();
 		return lat;
 	}
-		String sqlQuery = "Select latitude from locations where restaurant = " + restaurant;
+		String sqlQuery = "Select latitude from locations where restaurant = '" + restaurant + "';";
 		try {
 			rs = statement.executeQuery(sqlQuery);
 		} catch (SQLException e) {
@@ -114,6 +121,7 @@ public class DataBase {
 		try {
 			while(rs.next()){
 				lat = rs.getDouble("latitude");
+				System.out.println(Double.toString(lat));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -133,7 +141,7 @@ public class DataBase {
 		e.printStackTrace();
 		return lon;
 	}
-		String sqlQuery = "Select longitude from locations where restaurant = " + restaurant;
+		String sqlQuery = "Select longitude from locations where restaurant = '" + restaurant + "';";
 		try {
 			rs = statement.executeQuery(sqlQuery);
 		} catch (SQLException e) {
@@ -145,6 +153,7 @@ public class DataBase {
 		try {
 			while(rs.next()){
 				lon = rs.getDouble("longitude");
+				System.out.println(Double.toString(lon));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -164,8 +173,8 @@ public class DataBase {
 		e.printStackTrace();
 		return id;
 	}
-		String sqlQuery = "Select uid from table_ids where restaurant = " + restaurant + 
-				" and table_number = " + table;
+		String sqlQuery = "Select uid from table_ids where restaurant = '" + restaurant + 
+				"' and table_number = '" + table + "';";
 		try {
 			rs = statement.executeQuery(sqlQuery);
 		} catch (SQLException e) {
@@ -177,6 +186,7 @@ public class DataBase {
 		try {
 			while(rs.next()){
 				id = rs.getString("uid");
+				System.out.println(id);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

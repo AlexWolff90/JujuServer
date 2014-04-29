@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LocVer
@@ -35,16 +36,18 @@ public class LocVer extends HttpServlet {
 		// TODO Auto-generated method stub
 		String UID;
 		database = DataBase.getInstance();
-		
-		if(request.getParameter("lat")!=null && request.getParameter("lon")!= null && request.getParameter("id")!=null &&
-				isNumeric(request.getParameter("lat")) && isNumeric(request.getParameter("lon"))){
+		if(request.getParameter("lat")!=null && request.getParameter("lon")!= null && request.getParameter("rst")!=null && 
+				request.getParameter("tbl")!=null && isNumeric(request.getParameter("lat")) && isNumeric(request.getParameter("lon"))){
 			lat = Double.valueOf(request.getParameter("lat"));
 			lon = Double.valueOf(request.getParameter("lon"));
 			String restaurant = request.getParameter("rst");
 			String table = request.getParameter("tbl");
 			response.setContentType("text/plain");
 			response.setCharacterEncoding("UTF-8");
+			System.out.println("Got request");
 			UID = verify(lat, lon, restaurant, table);
+			HttpSession session = request.getSession();
+			session.setAttribute("uid", UID);
 		}
 		else{
 			UID = "null";
@@ -67,13 +70,13 @@ public class LocVer extends HttpServlet {
 			//set status
 			response.setStatus(HttpServletResponse.SC_OK);
 			//return url
-			pw.write("http://23.20.59.96/bill.jsp "+UID);
+			pw.write("http://54.87.17.182:8080/jsp/bill.jsp");
 		}
 		else{
 			//set status
 			response.setStatus(HttpServletResponse.SC_OK);
 			//return both
-			pw.write("http://23.20.59.96/locvererror.html null");
+			pw.write("http://54.87.17.182/locvererror.html");
 		}
 		//flush buffer
 		pw.flush();
