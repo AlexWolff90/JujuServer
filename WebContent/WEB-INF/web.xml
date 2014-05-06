@@ -19,4 +19,24 @@
     <servlet-name>LocVer</servlet-name>
     <url-pattern>/LocVer</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>paybill</display-name>
+    <servlet-name>paybill</servlet-name>
+    <servlet-class>paybill.paybill</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>paybill</servlet-name>
+    <url-pattern>/paybill</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Paybill</display-name>
+    <servlet-name>Paybill</servlet-name>
+    <servlet-class>getbill.Paybill</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Paybill</servlet-name>
+    <url-pattern>/Paybill</url-pattern>
+  </servlet-mapping>
 </web-app>

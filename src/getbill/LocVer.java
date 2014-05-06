@@ -70,13 +70,13 @@ public class LocVer extends HttpServlet {
 			//set status
 			response.setStatus(HttpServletResponse.SC_OK);
 			//return url
-			pw.write("http://54.87.17.182:8080/jsp/bill.jsp");
+			pw.write("http://54.83.5.31:8080/jsp/bill.jsp");
 		}
 		else{
 			//set status
 			response.setStatus(HttpServletResponse.SC_OK);
 			//return both
-			pw.write("http://54.87.17.182/locvererror.html");
+			pw.write("http://54.83.5.31/locvererror.html");
 		}
 		//flush buffer
 		pw.flush();

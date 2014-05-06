@@ -195,4 +195,78 @@ public class DataBase {
 		}
 		return id;
 	}
+	public Double getTotal(String uid){
+		Double total = new Double(-1);
+		Statement statement;
+		ResultSet rs;
+		try{
+			statement = connection.createStatement();
+		}catch (SQLException e){
+		System.out.println("Could not create statement");
+		e.printStackTrace();
+		return total;
+	}
+		String sqlQuery = "Select total from bill_payments where uid = '" + uid + "';";
+		try {
+			rs = statement.executeQuery(sqlQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Could not execute query");
+			e.printStackTrace();
+			return total;
+		}
+		try {
+			while(rs.next()){
+				total = rs.getDouble("total");
+				System.out.println(String.valueOf(total));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Could not retrieve total");
+			e.printStackTrace();
+		}
+		return total;
+	}
+	public int setPaid(String uid, Double paid){
+		Statement statement;
+		int success = 1;
+		try{
+			statement = connection.createStatement();
+		}catch (SQLException e){
+		System.out.println("Could not create statement");
+		e.printStackTrace();
+		return success;
+	}
+		String sqlQuery = "Update bill_payments set paid = '" + String.valueOf(paid) + "' where uid = '" + uid + "';";
+		try {
+			success = statement.executeUpdate(sqlQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Could not execute query");
+			e.printStackTrace();
+			return success;
+		}
+		return success;
+	}
+	public int setTip(String uid, Double tip){
+		Statement statement;
+		int success = 1;
+		try{
+			statement = connection.createStatement();
+		}catch (SQLException e){
+		System.out.println("Could not create statement");
+		e.printStackTrace();
+		return success;
+	}
+		String sqlQuery = "Update bill_payments set tip = '" + String.valueOf(tip) + "' where uid = '" + uid + "';";
+		try {
+			statement.executeUpdate(sqlQuery);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Could not execute query");
+			e.printStackTrace();
+			return success;
+		}
+		return success;
+	}
 }
